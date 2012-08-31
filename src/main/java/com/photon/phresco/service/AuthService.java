@@ -59,11 +59,14 @@ public class AuthService {
 //	}
 }
 
-class ConfigFactory {
+final class ConfigFactory {
 	
     private static final String SERVER_CONFIG_FILE = "server.config";
     private static LDAPManager ldapManager 				= null;
-
+    
+    private ConfigFactory() {
+    }
+    
     public static synchronized LDAPManager getLDAPManager() throws PhrescoException {
         if (ldapManager == null) {
             ldapManager = new LDAPManagerImpl(loadProperties(SERVER_CONFIG_FILE));
