@@ -21,6 +21,7 @@ package com.photon.phresco.service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
 
 import javax.ws.rs.Consumes;
@@ -30,6 +31,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.photon.phresco.commons.model.User;
+import com.photon.phresco.configuration.ConfigReader;
+import com.photon.phresco.configuration.Configuration;
 import com.photon.phresco.exception.PhrescoException;
 import com.photon.phresco.ldap.api.LDAPManager;
 import com.photon.phresco.ldap.impl.LDAPManagerImpl;
@@ -62,15 +65,31 @@ public class AuthService {
 final class ConfigFactory {
 	
     private static final String SERVER_CONFIG_FILE = "server.config";
-    private static LDAPManager ldapManager 				= null;
+    private static final String configFilePath =  "phresco-env-config.xml";
+    private static LDAPManager ldapManager = null;
+    private static final String LDAP = "LDAP";
     
     private ConfigFactory() {
     }
     
     public static synchronized LDAPManager getLDAPManager() throws PhrescoException {
-        if (ldapManager == null) {
-            ldapManager = new LDAPManagerImpl(loadProperties(SERVER_CONFIG_FILE));
-        }
+    	InputStream is = null;
+        try {
+			if (ldapManager == null) {
+				is = ConfigFactory.class.getClassLoader().getResourceAsStream(configFilePath);
+				ConfigReader configReader = new ConfigReader(is);
+				String environment = System.getProperty("SERVER_ENVIRONMENT");
+				if (environment == null || environment.isEmpty() ) {
+					environment = configReader.getDefaultEnvName();
+				}
+				 List<Configuration> configurations = configReader.getConfigurations(environment, LDAP);
+			    ldapManager = new LDAPManagerImpl(loadProperties(SERVER_CONFIG_FILE), configurations);
+			}
+		} catch (Exception e) {
+			throw new PhrescoException(e);
+		} finally {
+			Utility.closeStream(is);
+		}
         
         return ldapManager;
     }
