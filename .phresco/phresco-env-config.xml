@@ -2,6 +2,23 @@
     <environment default="true" name="Production">
          <Server appliesTo="tech-html5-widget" desc="" name="server">
             <protocol>http</protocol>
+            <host>172.16.18.174</host>
+            <port>7070</port>
+            <admin_username/>
+            <admin_password/>
+            <remoteDeployment>false</remoteDeployment>
+            <certificate/>
+            <type>Apache</type>
+            <version>2.3</version>
+            <deploy_dir>D:\work\apache-tomcat-7.0.14\webapps</deploy_dir>
+            <context>auth</context>
+            <additional_context>/</additional_context>
+        </Server>
+	</environment>
+	
+	 <environment default="false" name="Development">
+         <Server appliesTo="tech-html5-widget" desc="" name="server">
+            <protocol>http</protocol>
             <host>localhost</host>
             <port>7070</port>
             <admin_username/>
@@ -15,4 +32,5 @@
             <additional_context>/</additional_context>
         </Server>
 	</environment>
+	
 </environments>
