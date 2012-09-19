@@ -17,47 +17,50 @@
  * limitations under the License.
  * ###
  */
+
 package com.photon.phresco.service;
+
+import static org.junit.Assert.*;
 
 import java.util.List;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import org.apache.commons.codec.binary.Base64;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.photon.phresco.commons.model.User;
 import com.photon.phresco.exception.PhrescoException;
 import com.photon.phresco.ldap.api.LDAPManager;
 import com.photon.phresco.ldap.api.LDAPServerFactory;
-import com.photon.phresco.ldap.util.LDAPConstants;
 import com.photon.phresco.util.Credentials;
 
-@Path(LDAPConstants.LDAP_SERVICE_PATH)
-public class AuthService {
-	
+public class AuthServiceTest {
+    
     private LDAPManager ldapManager = null;
     
-    public AuthService() throws PhrescoException {
+    @Before
+    public void init() throws PhrescoException {
         LDAPServerFactory.initialize();
         ldapManager = LDAPServerFactory.getLDAPManager();
     }
     
-	@POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path(LDAPConstants.LDAP_SERVICE_AUTHENTICATE)
-    public User authenticate(Credentials credentials) throws PhrescoException {
-		return ldapManager.authenticate(credentials);
+    @Test
+    public void testAuthenticate() throws PhrescoException {
+        String userName = "demouser";
+        String password = "phresco";
+        byte[] encodeBase64 = Base64.encodeBase64(password.getBytes());
+        String encodedPassword = new String(encodeBase64);
+        Credentials credentials = new Credentials(userName, encodedPassword);
+        User user = ldapManager.authenticate(credentials);
+        assertNotNull(user);
     }
-	
-	@POST
-    @Consumes (MediaType.APPLICATION_JSON)
-    @Produces (MediaType.APPLICATION_JSON)
-    @Path (LDAPConstants.LDAP_SERVICE_IMPORT)
-    public List<User> getUsers(User user) throws PhrescoException {
-	    List<User> allUsers = ldapManager.getAllUsers(user);
-        return allUsers;
+
+    @Test
+    public void testGetUsers() throws PhrescoException {
+        User user = new User();
+        user.setName("demouser");
+        List<User> users = ldapManager.getAllUsers(user);
+        assertNotNull(users);
     }
+
 }

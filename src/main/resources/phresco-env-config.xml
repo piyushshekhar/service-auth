@@ -1,0 +1,13 @@
+<environments>
+    <environment default="true" name="Production">
+		<LDAP desc="" name="ldap">
+            <host>172.16.1.19</host>
+            <port>389</port>
+			<protocol>ldap</protocol>
+            <baseDN>ou=users,o=photon,dc=photoninfotech,dc=com</baseDN>
+            <authenticationType>NONE</authenticationType>
+            <bindDN></bindDN>
+            <bindPassword></bindPassword>
+			</LDAP>
+	</environment>
+</environments>
