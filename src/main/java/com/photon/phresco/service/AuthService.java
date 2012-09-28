@@ -45,17 +45,17 @@ public class AuthService {
     }
     
 	@POST
+	@Path(LDAPConstants.LDAP_SERVICE_AUTHENTICATE)
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path(LDAPConstants.LDAP_SERVICE_AUTHENTICATE)
     public User authenticate(Credentials credentials) throws PhrescoException {
 		return ldapManager.authenticate(credentials);
     }
 	
 	@POST
+	@Path (LDAPConstants.LDAP_SERVICE_IMPORT)
     @Consumes (MediaType.APPLICATION_JSON)
     @Produces (MediaType.APPLICATION_JSON)
-    @Path (LDAPConstants.LDAP_SERVICE_IMPORT)
     public List<User> getUsers(User user) throws PhrescoException {
 	    List<User> allUsers = ldapManager.getAllUsers(user);
         return allUsers;

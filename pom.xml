@@ -46,12 +46,6 @@
 		</dependency>
 		
         <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-bundle</artifactId>
-            <version>${jersey-bundle.version}</version>
-        </dependency>
-        
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
@@ -83,8 +77,8 @@
 			<groupId>org.springframework.ldap</groupId>
 			<artifactId>spring-ldap-core</artifactId>
 			<version>1.3.0.RELEASE</version>
-		</dependency>
-	    
+        </dependency>
+
 		<dependency>
 			<groupId>com.sun</groupId>
 			<artifactId>ldapbp</artifactId>
@@ -98,12 +92,6 @@
             <scope>test</scope>
         </dependency>
         
-        <dependency>
-	        <groupId>spring</groupId>
-	        <artifactId>spring-core</artifactId>
-	        <version>1.0.2</version>
-      	</dependency>
-	
 	<dependency>
 		<groupId>cglib</groupId>
 		<artifactId>cglib</artifactId>
