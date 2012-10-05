@@ -34,6 +34,7 @@ public class UserAttributesMapper extends AbstractContextMapper implements LDAPC
     protected Object doMapFromContext(DirContextOperations context) {
         User user = new User();
         try {
+        	user.setId(context.getStringAttribute(LDAP_UID_ATTRIBUTE));
             user.setName(context.getStringAttribute(LDAP_UID_ATTRIBUTE));
             user.setEmail(context.getStringAttribute(LDAP_MAIL_ATTRIBUTE));
             user.setDisplayName(context.getStringAttribute(LDAP_DISPLAY_NAME_ATTRIBUTE));
@@ -43,6 +44,7 @@ public class UserAttributesMapper extends AbstractContextMapper implements LDAPC
                 phrescoEnabled = "true";
             }
             user.setPhrescoEnabled(Boolean.parseBoolean(phrescoEnabled));
+            user.setValidLogin(true);
         } catch (Exception e) {
             try {
                 throw new PhrescoException();
