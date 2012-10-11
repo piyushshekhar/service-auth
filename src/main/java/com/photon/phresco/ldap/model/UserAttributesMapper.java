@@ -25,6 +25,7 @@ import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.ldap.core.support.AbstractContextMapper;
 
 import com.photon.phresco.commons.model.User;
+import com.photon.phresco.commons.model.User.AuthType;
 import com.photon.phresco.exception.PhrescoException;
 import com.photon.phresco.ldap.util.LDAPConstants;
 
@@ -44,6 +45,7 @@ public class UserAttributesMapper extends AbstractContextMapper implements LDAPC
                 phrescoEnabled = "true";
             }
             user.setPhrescoEnabled(Boolean.parseBoolean(phrescoEnabled));
+            user.setAuthType(AuthType.AUTHSERVICE);
             user.setValidLogin(true);
         } catch (Exception e) {
             try {
