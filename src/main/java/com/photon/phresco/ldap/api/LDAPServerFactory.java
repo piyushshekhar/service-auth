@@ -22,7 +22,9 @@ package com.photon.phresco.ldap.api;
 
 import com.photon.phresco.exception.PhrescoException;
 
-public class LDAPServerFactory {
+public final class LDAPServerFactory {
+	 
+	private LDAPServerFactory(){}
     
     private static final String LDAP_MANAGER_IMPL_CLASS = "com.photon.phresco.ldap.impl.LDAPManagerImpl";
     private static LDAPManager ldapManager = null;

@@ -26,34 +26,28 @@ import org.springframework.ldap.core.support.AbstractContextMapper;
 
 import com.photon.phresco.commons.model.User;
 import com.photon.phresco.commons.model.User.AuthType;
-import com.photon.phresco.exception.PhrescoException;
 import com.photon.phresco.ldap.util.LDAPConstants;
 
 public class UserAttributesMapper extends AbstractContextMapper implements LDAPConstants {
 
 	@Override
-    protected Object doMapFromContext(DirContextOperations context) {
-        User user = new User();
-        try {
-        	user.setId(context.getStringAttribute(LDAP_UID_ATTRIBUTE));
-            user.setName(context.getStringAttribute(LDAP_UID_ATTRIBUTE));
-            user.setEmail(context.getStringAttribute(LDAP_MAIL_ATTRIBUTE));
-            user.setDisplayName(context.getStringAttribute(LDAP_DISPLAY_NAME_ATTRIBUTE));
-            String phrescoEnabled = "true";
-            String stringAttribute = context.getStringAttribute(LDAP_PHRESCO_ENABLED);
-            if(StringUtils.isNotEmpty(stringAttribute)) {
-                phrescoEnabled = "true";
-            }
-            user.setPhrescoEnabled(Boolean.parseBoolean(phrescoEnabled));
-            user.setAuthType(AuthType.AUTHSERVICE);
-            user.setValidLogin(true);
-        } catch (Exception e) {
-            try {
-                throw new PhrescoException();
-            } catch (PhrescoException ex){
-            }
-        }
-        return user;
-    }
+	protected Object doMapFromContext(DirContextOperations context) {
+		User user = new User();
+		user.setId(context.getStringAttribute(LDAP_UID_ATTRIBUTE));
+		user.setName(context.getStringAttribute(LDAP_UID_ATTRIBUTE));
+		user.setEmail(context.getStringAttribute(LDAP_MAIL_ATTRIBUTE));
+		user.setDisplayName(context.getStringAttribute(LDAP_DISPLAY_NAME_ATTRIBUTE));
+		String phrescoEnabled = "true";
+		String stringAttribute = context.getStringAttribute(LDAP_PHRESCO_ENABLED);
+		if (StringUtils.isNotEmpty(stringAttribute)) {
+			phrescoEnabled = "true";
+		}
+		user.setPhrescoEnabled(Boolean.parseBoolean(phrescoEnabled));
+		user.setAuthType(AuthType.AUTHSERVICE);
+		user.setValidLogin(true);
+		return user;
+	}
 
 }
+
+

@@ -69,7 +69,6 @@ public class LDAPManagerImpl implements LDAPManager, LDAPConstants {
 	private static Map<String, LdapTemplate> ldapTemplateMap = new HashMap<String, LdapTemplate>();
 	
 	
-	@Override
 	public User authenticate(Credentials credentials) throws PhrescoException {
 		if (isDebugEnabled) {
 			S_LOGGER.debug("Entering Method LDAPManagerImpl.authenticate(Credentials credentials)");
@@ -111,12 +110,13 @@ public class LDAPManagerImpl implements LDAPManager, LDAPConstants {
         return handler.getList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	private User getUserById(String userId, LdapTemplate ldapTemplate) {
 	    SearchControls controls = new SearchControls();
         controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
         AndFilter filter = new AndFilter();
         filter.and(new EqualsFilter(LDAP_OBJECTCLASS, LDAP_OBJECTCLASS_VALUE)).and(new EqualsFilter(LDAP_FILTER, userId));
-        List<User> users = ldapTemplate.search(StringUtils.EMPTY, filter.toString(), controls, new UserAttributesMapper());
+		List<User> users = ldapTemplate.search(StringUtils.EMPTY, filter.toString(), controls, new UserAttributesMapper());
         return users.get(0);
 	}
 }

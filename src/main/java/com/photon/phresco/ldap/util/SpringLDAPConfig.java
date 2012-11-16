@@ -35,16 +35,16 @@ public class SpringLDAPConfig {
     public SpringLDAPConfig() throws PhrescoException {
         ldapConfig = LDAPConfiguration.getInstance();
     }
-
-    public @Bean LdapContextSource ldapContextSource() throws PhrescoException {
+    @Bean
+    public  LdapContextSource ldapContextSource() throws PhrescoException {
         LdapContextSource contextSource = new LdapContextSource();
         contextSource.setUrl(ldapConfig.getLdapUrl());
         contextSource.setBase(ldapConfig.getLdapBaseDn());
         return contextSource;
     }
-
-    public @Bean LdapTemplate ldapTemplate() throws PhrescoException {
-        LdapTemplate ldapTemplate = new LdapTemplate(ldapContextSource());
-        return ldapTemplate;
+    @Bean
+    public  LdapTemplate ldapTemplate() throws PhrescoException {
+        return new LdapTemplate(ldapContextSource());
+        
     }
 }

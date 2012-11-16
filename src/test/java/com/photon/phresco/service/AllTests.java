@@ -24,7 +24,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ PhrescoServiceTest.class })
+@SuiteClasses({AuthServiceTest.class })
 public class AllTests {
 
 }

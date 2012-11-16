@@ -57,7 +57,7 @@ public class AuthService {
     @Consumes (MediaType.APPLICATION_JSON)
     @Produces (MediaType.APPLICATION_JSON)
     public List<User> getUsers(User user) throws PhrescoException {
-	    List<User> allUsers = ldapManager.getAllUsers(user);
-        return allUsers;
+		return ldapManager.getAllUsers(user);
+        
     }
 }

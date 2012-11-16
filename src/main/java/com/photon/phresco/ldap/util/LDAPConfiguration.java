@@ -42,19 +42,19 @@ import com.photon.phresco.configuration.ConfigReader;
 import com.photon.phresco.configuration.Configuration;
 import com.photon.phresco.exception.PhrescoException;
 
-public class LDAPConfiguration implements LDAPConstants {
+public final class LDAPConfiguration implements LDAPConstants {
 	
     private static final String LDAP = "LDAP";
     private static LDAPConfiguration ldapConfig;
     
-	private String ldapUrl;
 	private String ldaphost;
 	private String ldapPort;
 	private String ldapProtocol;
 	private String ldapBaseDn;
-    private List<Configuration> configurations;
+   
 	
     private LDAPConfiguration() throws PhrescoException {
+    	 List<Configuration> configurations;
         InputStream is = null;
         try {
             is = SpringLDAPConfig.class.getClassLoader().getResourceAsStream(
@@ -100,8 +100,8 @@ public class LDAPConfiguration implements LDAPConstants {
 	 * @return the ldapUrl
 	 */
 	public String getLdapUrl()throws PhrescoException {
-		ldapUrl = ldapProtocol + LDAPConstants.COLON + DOUBLE_SLASH + ldaphost + LDAPConstants.COLON + ldapPort;
-		return ldapUrl;
+		return ldapProtocol + LDAPConstants.COLON + DOUBLE_SLASH + ldaphost + LDAPConstants.COLON + ldapPort;
+		
 	}
 
 	/**
