@@ -156,12 +156,6 @@
                 <server>auth-service</server>
               </configuration>
             </plugin>
-			<plugin>
-                <groupId>com.photon.phresco.plugins</groupId>
-                <artifactId>java-maven-plugin</artifactId>                
-                <version>2.0.0.10002</version>
-                <extensions>true</extensions>
-            </plugin>
         </plugins>
     </build>
 	
